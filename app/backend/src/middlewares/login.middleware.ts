@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import loginSchema from '../schemas/login.schema';
-import Token from '../helpers/createToken';
+import Token from '../utils/token';
 
 const token = new Token();
 

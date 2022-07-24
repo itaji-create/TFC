@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import bcrypt = require('bcryptjs');
 import User from '../database/models/user';
 import login from '../interfaces/login.interface';
-import Token from '../helpers/createToken';
+import Token from '../utils/token';
 
 const token = new Token();
 
@@ -17,11 +17,11 @@ class LoginService {
     });
 
     if (userData === null) {
-      return { code: 401, message: 'Incorrect email or password' };
+      return { code: StatusCodes.UNAUTHORIZED, message: 'Incorrect email or password' };
     }
     const auth = bcrypt.compareSync(password, userData.password);
 
-    if (!auth) return { code: 401, message: 'Incorrect email or password' };
+    if (!auth) return { code: StatusCodes.UNAUTHORIZED, message: 'Incorrect email or password' };
 
     const sign = token.create(password);
 
@@ -30,12 +30,14 @@ class LoginService {
     return { user: { id, username, role, email }, token: sign, code: StatusCodes.OK };
   };
 
-  public getRole = async (email: string): Promise<string | undefined> => {
+  public getRole = async (email: string): Promise< { role: string | undefined } > => {
     const user = await User.findOne({
       where: { email },
     });
 
-    return user?.role;
+    const role = { role: user?.role };
+
+    return role;
   };
 }
 
