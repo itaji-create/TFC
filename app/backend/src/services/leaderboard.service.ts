@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-// import createLeaderboard from '../utils/createLeaderboard/createLeaderboard';
+import createLeaderboard from '../utils/createLeaderboard/createLeaderboard';
 import createHomeLeaderboard from '../utils/createLeaderboard/createHomeLeaderboard';
 import createAwayLeaderboard from '../utils/createLeaderboard/createAwayLeaderboard';
 import MatchesService from './matches.service';
@@ -10,7 +10,10 @@ const service = new MatchesService();
 
 class LeaderboardService {
   public getAll = async () => {
-    const leaderboard = {};
+    const teams = await Team.findAll();
+    const { matches } = await service.getAll('false');
+    const leaderboard = createLeaderboard(teams, matches);
+    classification(leaderboard);
 
     return { code: StatusCodes.OK, leaderboard };
   };

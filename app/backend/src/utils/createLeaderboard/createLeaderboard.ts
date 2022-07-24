@@ -1,41 +1,36 @@
-// import ITeam from '../../interfaces/ITeam';
-// import Leaderboard from '../../interfaces/leaderboard';
-// import createHomeLeaderboard from './createHomeLeaderboard';
-// import createAwayLeaderboard from './createAwayLeaderboard';
-// import IMatch from '../../interfaces/IMatch';
+import ITeam from '../../interfaces/ITeam';
+import createHomeLeaderboard from './createHomeLeaderboard';
+import createAwayLeaderboard from './createAwayLeaderboard';
+import IMatch from '../../interfaces/IMatch';
+import Leaderboard from '../../interfaces/leaderboard';
 
-// function matchesTeam(team: ITeam, matches: IMatch[]) {
-//   const matchesHomeTeam = matches.filter((e) => e.homeTeam === team.id);
-//   const matchesAwayTeam = matches.filter((e) => e.awayTeam === team.id);
-//   const dataAwayTeam = createAwayLeaderboard(matchesAwayTeam);
-//   const dataHomeTeam = createHomeLeaderboard(matchesHomeTeam);
+function combineDatas(dataHomeTeam: Leaderboard[], dataAwayTeam: Leaderboard[]) {
+  return dataHomeTeam.map((team, i) => {
+    const goalsFavor = team.goalsFavor + dataAwayTeam[i].goalsFavor;
+    const goalsOwn = team.goalsOwn + dataAwayTeam[i].goalsOwn;
+    const totalGames = team.totalGames + dataAwayTeam[i].totalGames;
+    const totalPoints = team.totalPoints + dataAwayTeam[i].totalPoints;
+    return {
+      name: team.name,
+      totalGames,
+      totalPoints,
+      totalVictories: team.totalVictories + dataAwayTeam[i].totalVictories,
+      totalDraws: team.totalDraws + dataAwayTeam[i].totalDraws,
+      totalLosses: team.totalLosses + dataAwayTeam[i].totalLosses,
+      goalsFavor,
+      goalsOwn,
+      efficiency: Number((((totalPoints) / (totalGames * 3)) * (100)).toFixed(2)),
+      goalsBalance: goalsFavor - goalsOwn,
+    };
+  });
+}
 
-//   const lb: Leaderboard = {
-//     name: team.teamName,
-//     totalGames: matchesHomeTeam.concat(matchesAwayTeam).length,
-//     totalPoints: dataAwayTeam.totalPoints + dataHomeTeam.totalPoints,
-//     totalVictories: dataAwayTeam.totalVictories + dataHomeTeam.totalVictories,
-//     totalDraws: dataAwayTeam.totalDraws + dataHomeTeam.totalDraws,
-//     totalLosses: dataAwayTeam.totalLosses + dataHomeTeam.totalLosses,
-//     goalsFavor: dataAwayTeam.goalsFavor + dataHomeTeam.goalsFavor,
-//     goalsOwn: dataAwayTeam.goalsOwn + dataHomeTeam.goalsOwn,
-//     efficiency: 0,
-//     goalsBalance: 0,
-//   };
-//   return lb;
-// }
+function createLeaderboard(teams: ITeam[], matches: IMatch[]) {
+  const dataAwayTeam = createAwayLeaderboard(teams, matches);
+  const dataHomeTeam = createHomeLeaderboard(teams, matches);
 
-// function createLeaderboard(teams: ITeam[], matches: IMatch[]) {
-//   const leaderboard: Leaderboard[] = [];
+  const leaderboard = combineDatas(dataHomeTeam, dataAwayTeam);
+  return leaderboard;
+}
 
-//   teams.forEach((team: ITeam) => {
-//     const lb = matchesTeam(team, matches);
-//     lb.goalsBalance = lb.goalsFavor - lb.goalsOwn;
-//     lb.efficiency = Number((((lb.totalPoints) / (lb.totalGames * 3)) * (100)).toFixed(2));
-//     leaderboard.push(lb);
-//   });
-
-//   return leaderboard;
-// }
-
-// export default createLeaderboard;
+export default createLeaderboard;
