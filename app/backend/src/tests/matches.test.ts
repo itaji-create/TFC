@@ -1,8 +1,6 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-// @ts-ignore
-import chaiHttp = require('chai-http');
-
+import chaiHttp from 'chai-http';
 import { app } from '../app';
 import Match from '../database/models/match';
 import matchMock from './mocks/match.mock';
@@ -29,9 +27,7 @@ describe('Seu teste', () => {
   it('get matches', async () => {
     chaiHttpResponse = await chai
        .request(app).get('/matches');
-    console.log(chaiHttpResponse.body.matches);
     
-
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body.matches).to.be.an('array');
     expect(chaiHttpResponse.body.matches[0].id).to.be.equal(41);
@@ -41,4 +37,11 @@ describe('Seu teste', () => {
     expect(false).to.be.eq(true);
   });
 });
+function before(arg0: () => Promise<void>) {
+  throw new Error('Function not implemented.');
+}
+
+function after(arg0: () => void) {
+  throw new Error('Function not implemented.');
+}
 

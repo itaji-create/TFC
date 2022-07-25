@@ -1,12 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
-import { verify } from 'jsonwebtoken';
 import bcrypt = require('bcryptjs');
 import User from '../database/models/user';
 import login from '../interfaces/login.interface';
 import Token from '../utils/token';
 
 const token = new Token();
-const { JWT_SECRET } = process.env;
 
 class LoginService {
   public start = async (properties: login): Promise<{
@@ -32,15 +30,12 @@ class LoginService {
     return { user: { id, username, role, email }, token: sign, code: StatusCodes.OK };
   };
 
-  public getRole = async (authorization: string) => {
-    try {
-      const payload = verify(authorization, JWT_SECRET as string);
+  public getRole = async (email: string) => {
+    const user = await User.findOne({
+      where: { email },
+    });
 
-      if (typeof payload === 'object') return payload;
-      return { data: 'something goes wrong' };
-    } catch (error) {
-      return { data: error };
-    }
+    return { role: user?.role };
   };
 }
 

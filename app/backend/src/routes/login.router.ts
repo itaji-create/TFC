@@ -8,7 +8,7 @@ const controller = new LoginController();
 const router = Router();
 
 router
-  .get('/validate', controller.authRole, controller.role)
+  .get('/validate', login.tokenAuthenticador, controller.role)
   .post('/', login.validateProperties, controller.start);
 
 export default router;

@@ -49,20 +49,18 @@ class MatchesService {
   };
 
   public finish = async (id: string) => {
-    const [matches] = await Match.update(
+    await Match.update(
       { inProgress: false },
       { where: { id: Number(id) } },
     );
-    return { code: StatusCodes.CREATED, matches };
   };
 
   public updateGoals = async (body: any, id: string) => {
     const { homeTeamGoals, awayTeamGoals } = body;
-    const [matches] = await Match.update(
+    await Match.update(
       { homeTeamGoals, awayTeamGoals },
       { where: { id: Number(id) } },
     );
-    return { code: StatusCodes.CREATED, matches };
   };
 }
 
