@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import LoginService from '../services/login.service';
 
 const service = new LoginService();
@@ -10,9 +10,15 @@ class LoginController {
   };
 
   public role = async (req: Request, res: Response) => {
-    const { email } = req.body;
-    const role = await service.getRole(email);
-    return res.status(200).json(role);
+    const { authorization } = req.headers;
+    const role = await service.getRole(authorization || '');
+    return res.status(200).json({ role: role.data });
+  };
+
+  public authRole = async (req: Request, res: Response, next: NextFunction) => {
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).json({ message: 'faled authorization' });
+    next();
   };
 }
 

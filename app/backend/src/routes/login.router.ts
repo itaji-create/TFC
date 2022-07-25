@@ -3,12 +3,12 @@ import LoginMiddleware from '../middlewares/login.middleware';
 import LoginController from '../controllers/login.controller';
 
 const login = new LoginMiddleware();
-const loginController = new LoginController();
+const controller = new LoginController();
 
 const router = Router();
 
 router
-  .get('/validate', loginController.role)
-  .post('/', login.validateProperties, loginController.start);
+  .get('/validate', controller.authRole, controller.role)
+  .post('/', login.validateProperties, controller.start);
 
 export default router;
