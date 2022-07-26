@@ -4,7 +4,7 @@ import 'dotenv/config';
 const secret = process.env.JWT_SECRET || 'jwt_secret';
 
 class Token {
-  public create = (data: string | number): string => {
+  public create = (data: { email: string, password: string }): string => {
     const jwtConfig: jwt.SignOptions = {
       expiresIn: '7d',
       algorithm: 'HS256',

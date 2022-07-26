@@ -22,15 +22,11 @@ class LoginService {
 
     if (!auth) return { code: StatusCodes.UNAUTHORIZED, message: 'Incorrect email or password' };
 
-    const sign = token.create(password);
+    const sign = token.create(properties);
 
     const { id, username, role } = userData;
 
     return { user: { id, username, role, email }, token: sign, code: StatusCodes.OK };
-  };
-
-  public getRole = async (key: string) => {
-    return { role: 'admin', key };
   };
 }
 

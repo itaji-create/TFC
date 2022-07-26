@@ -12,7 +12,7 @@ class LoginController {
   public getRole = async (req: Request, res: Response) => {
     const { authorization } = req.headers;
     if (!authorization) return res.status(401).json({ message: 'token do not exist' });
-    const role = await service.getRole(authorization);
+    const role = { role: 'admin' };
     return res.status(200).json(role);
   };
 }
