@@ -9,9 +9,10 @@ class LoginController {
     return res.status(response.code).json(response);
   };
 
-  public role = async (req: Request, res: Response) => {
-    const { email } = req.body;
-    const role = await service.getRole(email);
+  public getRole = async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+    if (!authorization) return res.status(401).json({ message: 'token do not exist' });
+    const role = await service.getRole(authorization);
     return res.status(200).json(role);
   };
 }

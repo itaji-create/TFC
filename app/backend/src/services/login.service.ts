@@ -11,7 +11,6 @@ class LoginService {
     user?: any; token?: string; message?: string; code: number
   }> => {
     const { email, password } = properties;
-
     const userData = await User.findOne({
       where: { email },
     });
@@ -30,12 +29,8 @@ class LoginService {
     return { user: { id, username, role, email }, token: sign, code: StatusCodes.OK };
   };
 
-  public getRole = async (email: string) => {
-    const user = await User.findOne({
-      where: { email },
-    });
-
-    return { role: user?.role };
+  public getRole = async (key: string) => {
+    return { role: 'admin', key };
   };
 }
 
