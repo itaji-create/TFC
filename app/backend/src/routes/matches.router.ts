@@ -7,9 +7,9 @@ const controller = new MatchesController();
 const login = new LoginMiddleware();
 
 router
+  .post('/', login.tokenAuthenticador, controller.create)
   .get('/', controller.getAll)
   .get('/:id', controller.getById)
-  .post('/', login.tokenAuthenticador, controller.create)
   .patch('/:id/finish', controller.finish)
   .patch('/:id', controller.updateGoals);
 export default router;
