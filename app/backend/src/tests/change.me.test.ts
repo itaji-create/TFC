@@ -1,45 +1,45 @@
-import * as sinon from 'sinon';
-import * as chai from 'chai';
-// @ts-ignore
-import chaiHttp = require('chai-http');
+// import * as sinon from 'sinon';
+// import * as chai from 'chai';
+// // @ts-ignore
+// import chaiHttp = require('chai-http');
 
-import { app } from '../app';
-import Example from '../database/models/ExampleModel';
+// import { app } from '../app';
+// import LoginService from '../services/login.service';
+// import User from '../database/models/user';
 
-import { Response } from 'superagent';
+// import { Response } from 'superagent';
 
-chai.use(chaiHttp);
+// chai.use(chaiHttp);
 
-const { expect } = chai;
+// const { expect } = chai;
+// const service = new LoginService();
 
-describe('Seu teste', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
+// describe('Seu teste', () => {
+//   let chaiHttpResponse: Response;
 
-  // let chaiHttpResponse: Response;
+//   before(async () => {
+//     sinon
+//       .stub(User, "findOne")
+//       .resolves(userMock as User[]);
+//   });
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
+//   after(()=>{
+//     (User.findOne as sinon.SinonStub).restore();
+//   })
 
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
+//   it('get matches', async () => {
+//     chaiHttpResponse = await service.start({
+//       email: 'string@gmail.com',
+//       password: 'stringasd'
+//     });
+    
 
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
+//     expect(chaiHttpResponse).to.be.equal(200);
+//     expect(chaiHttpResponse).to.be.an('array');
+//     expect(chaiHttpResponse).to.be.equal(41);
+//   });
 
-  //   expect(...)
-  // });
-
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
-  });
-});
+//   it('Seu sub-teste', () => {
+//     expect(false).to.be.eq(true);
+//   });
+// });

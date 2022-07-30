@@ -1,47 +1,37 @@
-import * as sinon from 'sinon';
-import * as chai from 'chai';
-import chaiHttp from 'chai-http';
-import { app } from '../app';
-import Match from '../database/models/match';
-import matchMock from './mocks/match.mock';
+// import * as sinon from 'sinon';
+// import * as chai from 'chai';
+// // @ts-ignore
+// import chaiHttp = require('chai-http');
 
-import { Response } from 'superagent';
+// import { app } from '../app';
+// import Match from '../database/models/match';
+// import matchMock from './mocks/match.mock';
 
-chai.use(chaiHttp);
+// import { Response } from 'superagent';
 
-const { expect } = chai;
+// chai.use(chaiHttp);
 
-describe('Seu teste', () => {
-  let chaiHttpResponse: Response;
+// const { expect } = chai;
 
-  before(async () => {
-    sinon
-      .stub(Match, "findAll")
-      .resolves(matchMock as Match[]);
-  });
+// describe('Seu teste', () => {
+//   let chaiHttpResponse: Response;
 
-  after(()=>{
-    (Match.findAll as sinon.SinonStub).restore();
-  })
+//   before(async () => {
+//     sinon
+//       .stub(Match, "findAll")
+//       .resolves(matchMock as Match[]);
+//   });
 
-  it('get matches', async () => {
-    chaiHttpResponse = await chai
-       .request(app).get('/matches');
-    
-    expect(chaiHttpResponse.status).to.be.equal(200);
-    expect(chaiHttpResponse.body.matches).to.be.an('array');
-    expect(chaiHttpResponse.body.matches[0].id).to.be.equal(41);
-  });
+//   after(()=>{
+//     (Match.findAll as sinon.SinonStub).restore();
+//   })
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
-  });
-});
-function before(arg0: () => Promise<void>) {
-  throw new Error('Function not implemented.');
-}
+//   it('get matches', async () => {
+//     chaiHttpResponse = await chai
+//        .request(app).get('/matches');    
 
-function after(arg0: () => void) {
-  throw new Error('Function not implemented.');
-}
-
+//     expect(chaiHttpResponse.status).to.be.equal(200);
+//     expect(chaiHttpResponse.body.matches).to.be.an('array');
+//     expect(chaiHttpResponse.body.matches[0].id).to.be.equal(41);
+//   });
+// });
