@@ -1,37 +1,24 @@
-// import * as sinon from 'sinon';
-// import * as chai from 'chai';
-// // @ts-ignore
-// import chaiHttp = require('chai-http');
+import * as sinon from 'sinon';
+import * as chai from 'chai';
+// @ts-ignore
+import chaiHttp = require('chai-http');
 
-// import { app } from '../app';
-// import Match from '../database/models/match';
-// import matchMock from './mocks/match.mock';
+import { app } from '../app';
 
-// import { Response } from 'superagent';
+import { Response } from 'superagent';
 
-// chai.use(chaiHttp);
+chai.use(chaiHttp);
 
-// const { expect } = chai;
+const { expect } = chai;
 
-// describe('Seu teste', () => {
-//   let chaiHttpResponse: Response;
+describe('matches', () => {
+  let chaiHttpResponse: Response;
 
-//   before(async () => {
-//     sinon
-//       .stub(Match, "findAll")
-//       .resolves(matchMock as Match[]);
-//   });
+  it('retornar todos os elementos', async () => {
+    chaiHttpResponse = await chai.request(app)
+      .get('/matches');
 
-//   after(()=>{
-//     (Match.findAll as sinon.SinonStub).restore();
-//   })
-
-//   it('get matches', async () => {
-//     chaiHttpResponse = await chai
-//        .request(app).get('/matches');    
-
-//     expect(chaiHttpResponse.status).to.be.equal(200);
-//     expect(chaiHttpResponse.body.matches).to.be.an('array');
-//     expect(chaiHttpResponse.body.matches[0].id).to.be.equal(41);
-//   });
-// });
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(typeof chaiHttpResponse.body).to.be.equal('object');
+  });
+});
