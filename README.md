@@ -26,6 +26,8 @@ O projeto é composto de 4 entidades importantes para sua estrutura:
 
 4️⃣ **Docker:**
   - O Docker entra com o papel de unir todas as partes e subir um projeto completo com um comando só via o `docker-compose`;
+  
+</details>
 
 <details>
   <summary><strong>⚠️ Configurações mínimas nas máquinas locais para rodar o projeto</strong></summary><br />
